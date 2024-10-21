@@ -6,6 +6,10 @@ import torch
 
 
 class Inference:
+    """
+    Класс для генерации текста при помощи ruGPT3
+    """
+
     loaded: bool = False
 
     max_new_tokens: int = 100
@@ -17,6 +21,10 @@ class Inference:
     tokenizer: GPT2Tokenizer | None = None
 
     def load_models(self) -> None:
+        """
+        Загрузка моделей
+        """
+
         self.model = GPT2LMHeadModel.from_pretrained(MODEL_NAME)
         self.tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)
         self.model.eval()
@@ -25,6 +33,13 @@ class Inference:
         self.loaded = True
 
     def generate_text(self, prompt: str) -> str:
+        """
+        Генерация текста
+
+        :param prompt: Строка, на основе которой будет сгенерирован текст
+        :return: Сгенерированный текст
+        """
+
         if not self.loaded:
             raise RuntimeError("Модели не загружены.")
 
@@ -38,7 +53,8 @@ class Inference:
                 max_new_tokens=self.max_new_tokens,
                 no_repeat_ngram_size=self.no_repeat_ngram_size,
                 repetition_penalty=self.repetition_penalty,
-                temperature=self.temperature,
+                temperature=self.temperature if self.temperature > 0 else None,
+                do_sample=self.temperature > 0,
             )
 
         text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
