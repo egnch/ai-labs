@@ -1,4 +1,7 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
+from .settings import MODEL_NAME
+
 import torch
 
 
@@ -14,8 +17,8 @@ class Inference:
     tokenizer: GPT2Tokenizer | None = None
 
     def load_models(self) -> None:
-        self.model = GPT2LMHeadModel.from_pretrained("sberbank-ai/rugpt3small_based_on_gpt2")
-        self.tokenizer = GPT2Tokenizer.from_pretrained("sberbank-ai/rugpt3small_based_on_gpt2")
+        self.model = GPT2LMHeadModel.from_pretrained(MODEL_NAME)
+        self.tokenizer = GPT2Tokenizer.from_pretrained(MODEL_NAME)
         self.model.eval()
         if torch.cuda.is_available():
             self.model.to("cuda")
