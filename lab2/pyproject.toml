@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "lab2"
+version = "0.1.0"
+description = ""
+authors = ["egnch <egn.ch@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+transformers = "^4.45.2"
+torch = {version = "^2.5.0+cpu", source = "pytorch-cpu-src"}
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.7.0"
+
+
+[[tool.poetry.source]]
+name = "pytorch-cpu-src"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
