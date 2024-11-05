@@ -166,6 +166,8 @@ class MainFrame(tk.Frame):
     def generate_text(self, prompt: str) -> None:
         """
         Генерация текста
+        
+        :param prompt: Промпт
         """
 
         try:
