@@ -1,6 +1,14 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-from .settings import MODEL_NAME, MAX_NEW_TOKENS, NO_REPEAT_NGRAM_SIZE, REPETITION_PENALTY, TEMPERATURE, TOP_P, TOP_K
+from .settings import (
+    MODEL_NAME,
+    MAX_NEW_TOKENS,
+    NO_REPEAT_NGRAM_SIZE,
+    REPETITION_PENALTY,
+    TEMPERATURE,
+    TOP_P,
+    TOP_K,
+)
 
 import torch
 
