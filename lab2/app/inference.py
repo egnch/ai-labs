@@ -1,6 +1,6 @@
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-from .settings import MODEL_NAME, MAX_NEW_TOKENS, NO_REPEAT_NGRAM_SIZE, REPETITION_PENALTY, TEMPERATURE
+from .settings import MODEL_NAME, MAX_NEW_TOKENS, NO_REPEAT_NGRAM_SIZE, REPETITION_PENALTY, TEMPERATURE, TOP_P, TOP_K
 
 import torch
 
@@ -15,6 +15,8 @@ class Inference:
     max_new_tokens: int = MAX_NEW_TOKENS
     no_repeat_ngram_size: int = NO_REPEAT_NGRAM_SIZE
     repetition_penalty: float = REPETITION_PENALTY
+    top_p: float = TOP_P
+    top_k: int = TOP_K
     temperature: float = TEMPERATURE
 
     model: GPT2LMHeadModel | None = None
@@ -55,6 +57,8 @@ class Inference:
                 repetition_penalty=self.repetition_penalty,
                 temperature=self.temperature if self.temperature > 0 else None,
                 do_sample=self.temperature > 0,
+                top_p=self.top_p if self.temperature > 0 else None,
+                top_k=self.top_k if self.temperature > 0 else None,
             )
 
         text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)

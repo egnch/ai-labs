@@ -76,8 +76,24 @@ class SettingsFrame(tk.Toplevel):
             row=3, column=1, padx=10, pady=5
         )
 
+        tk.Label(self, text="Top P:").grid(
+            row=4, column=0, padx=10, pady=5, sticky=tk.W
+        )
+        self.top_p_var = tk.DoubleVar(value=self.inference.top_p)
+        tk.Entry(self, textvariable=self.top_p_var).grid(
+            row=4, column=1, padx=10, pady=5
+        )
+
+        tk.Label(self, text="Top K:").grid(
+            row=5, column=0, padx=10, pady=5, sticky=tk.W
+        )
+        self.top_k_var = tk.IntVar(value=self.inference.top_k)
+        tk.Entry(self, textvariable=self.top_k_var).grid(
+            row=5, column=1, padx=10, pady=5
+        )
+
         tk.Button(self, text="Применить", command=self.apply_settings).grid(
-            row=4, column=0, columnspan=2, pady=10
+            row=6, column=0, columnspan=2, pady=10
         )
 
     def apply_settings(self) -> None:
@@ -90,6 +106,8 @@ class SettingsFrame(tk.Toplevel):
             self.inference.no_repeat_ngram_size = self.no_repeat_ngram_size_var.get()
             self.inference.repetition_penalty = self.repetition_penalty_var.get()
             self.inference.temperature = self.temperature_var.get()
+            self.inference.top_p = self.top_p_var.get()
+            self.inference.top_k = self.top_k_var.get()
             self.destroy()
         except ValueError as e:
             messagebox.showerror("Ошибка", f"Неверный ввод: {e}")
@@ -166,7 +184,7 @@ class MainFrame(tk.Frame):
     def generate_text(self, prompt: str) -> None:
         """
         Генерация текста
-        
+
         :param prompt: Промпт
         """
 
